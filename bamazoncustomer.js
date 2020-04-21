@@ -45,7 +45,7 @@ function start() {
 
 function viewItems() {
 
-   connection.query("SELECT * FROM products", function (err, res) {
+    connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
 
         // Log all results of the SELECT statement
@@ -86,11 +86,12 @@ function buyItems() {
                 for (var i = 0; i < results.length; i++) {
                     if (results[i].pname === answer.choice) {
                         selection = results[i];
-                        console.log(selection.stock);
+                        console.log("There were  " + selection.stock + " in stock.");
                     }
                 } if (selection.stock >= parseInt(answer.qty)) {
 
                     var updateStock = parseInt(selection.stock - answer.qty);
+                    console.log("Now only " + updateStock + " are in stock for the next lucky buyer!");
                     // if in stock, update db, let the user know, and start over
                     connection.query(
                         "UPDATE products SET ? WHERE ?",
@@ -99,7 +100,7 @@ function buyItems() {
                                 stock: updateStock
                             },
                             {
-                                id: selection.id
+                                pname: selection.pname
                             }
                         ],
                         function (error) {
