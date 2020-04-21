@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var colors = require("colors");
 
 var connection = mysql.createConnection({
     host: "127.0.0.1",
@@ -27,8 +28,8 @@ function start() {
         .prompt({
             name: "vieworbuy",
             type: "list",
-            message: "Would you like to [View] our inventory or [Buy]?",
-            choices: ["View", "Buy", "EXIT"]
+            message: "Would you like to [View] our inventory or [Buy]?".magenta,
+            choices: ["View", "Buy", "EXIT".random]
         })
         .then(function (answer) {
             // based on their answer, either call the buy or the view functions
@@ -49,7 +50,7 @@ function viewItems() {
         if (err) throw err;
 
         // Log all results of the SELECT statement
-        console.log("Here are the goods for purchase:\n");
+        console.log("Here are the goods for purchase:\n".magenta);
         console.log(res);
     });
     buyItems();
@@ -72,12 +73,12 @@ function buyItems() {
                         }
                         return choiceArray;
                     },
-                    message: "What would you like to buy?"
+                    message: "What would you like to buy?".magenta
                 },
                 {
                     name: "qty",
                     type: "input",
-                    message: "How many would you like to buy?"
+                    message: "How many would you like to buy?".cyan
                 }
 
             ]).then(function (answer) {
@@ -86,12 +87,12 @@ function buyItems() {
                 for (var i = 0; i < results.length; i++) {
                     if (results[i].pname === answer.choice) {
                         selection = results[i];
-                        console.log("There were  " + selection.stock + " in stock.");
+                        console.log("There were  ".cyan + selection.stock + " in stock.".magenta);
                     }
                 } if (selection.stock >= parseInt(answer.qty)) {
 
                     var updateStock = parseInt(selection.stock - answer.qty);
-                    console.log("Now only " + updateStock + " are in stock for the next lucky buyer!");
+                    console.log("Now only ".america + updateStock + " are in stock for the next lucky buyer!".america);
                     // if in stock, update db, let the user know, and start over
                     connection.query(
                         "UPDATE products SET ? WHERE ?",
@@ -105,13 +106,13 @@ function buyItems() {
                         ],
                         function (error) {
                             if (error) throw err;
-                            console.log(selection.pname + " is on its way!");
+                            console.log(selection.pname + " is on its way!".rainbow);
                             start();
                         });
                 }
                 else {
                     // not enough stock please start over
-                    console.log("Not enough in stock for purchase.");
+                    console.log("Not enough in stock for purchase.".magenta);
                     start();
                 }
             });

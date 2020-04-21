@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Raej1428/bamazon#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "inquirer": "^7.1.0",
     "mysql": "^2.18.1"
   }
