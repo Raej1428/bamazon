@@ -1,0 +1,27 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "A command line database for your shopping pleasure, built with MySQL and Node.JS.",
+  "main": "bamazoncustomer.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raej1428/bamazon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raej1428/bamazon/issues"
+  },
+  "homepage": "https://github.com/Raej1428/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  }
+}
