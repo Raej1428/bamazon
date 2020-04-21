@@ -27,11 +27,11 @@ function start() {
         .prompt({
             name: "vieworbuy",
             type: "list",
-            message: "Would you like to [View] our inventory or [Buy] an item?",
+            message: "Would you like to [View] our inventory or [Buy]?",
             choices: ["View", "Buy", "EXIT"]
         })
         .then(function (answer) {
-            // based on their answer, either call the bid or the post functions
+            // based on their answer, either call the buy or the view functions
             if (answer.vieworbuy === "View") {
                 viewItems();
             }
@@ -45,21 +45,21 @@ function start() {
 
 function viewItems() {
 
-    connection.query("SELECT * FROM products", function (err, res) {
+   connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
 
         // Log all results of the SELECT statement
-        console.log("Here are the items for purchase:\n");
+        console.log("Here are the goods for purchase:\n");
         console.log(res);
     });
     buyItems();
 }
 
 function buyItems() {
-    // query the database for all items being auctioned
+    // query the database for available goods and qty's
     connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
-        // once you have the items, prompt the user for which they'd like to bid on
+        // once you have the list of goods, prompt the user for which they'd like to buy
         inquirer
             .prompt([
                 {
@@ -72,7 +72,7 @@ function buyItems() {
                         }
                         return choiceArray;
                     },
-                    message: "What item would you like to buy?"
+                    message: "What would you like to buy?"
                 },
                 {
                     name: "qty",
@@ -81,19 +81,17 @@ function buyItems() {
                 }
 
             ]).then(function (answer) {
-                // get the information of the chosen item
-                var selectedItem;
+                // get the information of the chosen selection
+                var selection;
                 for (var i = 0; i < results.length; i++) {
-                    if (results[i].item_name === answer.choice) {
-                        selectedItem = results[i];
+                    if (results[i].pname === answer.choice) {
+                        selection = results[i];
+                        console.log(selection.stock);
                     }
-                }
-               
-                // determine if there is inventory =
-                if (selectedItem.stock < parseInt(answer.qty)) {
+                } if (selection.stock >= parseInt(answer.qty)) {
 
-                    var updateStock = parseInt(selectedItem.stock - answer.qty);
-                    // if item in stock, update db, let the user know, and start over
+                    var updateStock = parseInt(selection.stock - answer.qty);
+                    // if in stock, update db, let the user know, and start over
                     connection.query(
                         "UPDATE products SET ? WHERE ?",
                         [
@@ -101,20 +99,22 @@ function buyItems() {
                                 stock: updateStock
                             },
                             {
-                                item_id: selectedItem.id
+                                id: selection.id
                             }
                         ],
                         function (error) {
                             if (error) throw err;
-                            console.log(selectedItem.pname + " is on its way!");
+                            console.log(selection.pname + " is on its way!");
                             start();
                         });
                 }
                 else {
                     // not enough stock please start over
-                    console.log("Not enough items in stock for purchase.");
+                    console.log("Not enough in stock for purchase.");
                     start();
                 }
             });
     });
 }
+
+
