@@ -1,6 +1,8 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var colors = require("colors");
+// var inventory = require("./inventory.js");
+// var sell = require("./sell.js");
 
 var connection = mysql.createConnection({
   host: "127.0.0.1",
@@ -32,7 +34,7 @@ function runSearch() {
         "Find products by department!",
         "Find products within a specific price range!",
         "View Low Inventory!",
-        "Add an item to sell!"
+        "Add products to sell!"
       ]
     })
     .then(function (answer) {
@@ -49,7 +51,7 @@ function runSearch() {
           rangeSearch();
           break;
 
-        case "View Inventory!":
+        case "View Low Inventory!":
           viewLowInv();
           break;
 
@@ -146,8 +148,8 @@ function rangeSearch() {
       });
     });
 }
-
 function viewLowInv() {
+  console.log("here we go")
   inquirer
     .prompt({
       name: "pname",
@@ -173,6 +175,7 @@ function viewLowInv() {
 }
 
 function addItemSell() {
+  console.log("here we go")
   inquirer
     .prompt({
       name: "pname",
@@ -211,3 +214,4 @@ function addItemSell() {
       });
     });
 }
+
