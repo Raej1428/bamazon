@@ -174,44 +174,98 @@ function viewLowInv() {
     });
 }
 
-function addItemSell() {
-  console.log("here we go")
-  inquirer
-    .prompt({
-      name: "pname",
-      type: "input",
-      message: "What's the name of the product you wouild like to add?"
-    },
-      {
-        name: "deptname",
-        type: "input",
-        message: "What department does this product belong to?"
-      },
-      {
-        name: "stock",
-        type: "input",
-        message: "How many of this item are you adding?"
-      },
-      {
-        name: "price",
-        type: "input",
-        message: "How much is this item priced?"
-      })
-    .then(function (answer) {
-      connection.query("INSERT INTO products(pname, deptname, price, stock) VALUES", { pname: answer.pname, deptname: answer.deptname, stock: answer.stock, price: answer.price }, function (err, res) {
-        if (err) throw err;
-        console.log(
-          "Product: " +
-          res[0].pname +
-          " || Qty: " +
-          res[0].stock +
-          " || Price: " +
-          res[0].price +
-          " || Department: " +
-          res[0].deptname
-        );
-        runSearch();
-      });
-    });
+function addItemSell(){
+  console.log('>>>>>>Adding New Product<<<<<<');
+  var deptname = [];
+
+  //grab name of departments
+  connection.query('SELECT * FROM products', function(err, res){
+    if(err) throw err;
+    for(var i = 0; i<res.length; i++){
+      deptname.push(res[i].deptname);
+    }
+  })
+
+  inquirer.prompt([{
+    type: "input",
+    name: "product",
+    message: "Product: ",
+    validate: function(value){
+      if(value){return true;}
+      else{return false;}
+    }
+  }, {
+    type: "list",
+    name: "department",
+    message: "Department: ",
+    choices: deptname
+  }, {
+    type: "input",
+    name: "price",
+    message: "Price: ",
+    validate: function(value){
+      if(isNaN(value) === false){return true;}
+      else{return false;}
+    }
+  }, {
+    type: "input",
+    name: "quantity",
+    message: "Quantity: ",
+    validate: function(value){
+      if(isNaN(value) == false){return true;}
+      else{return false;}
+    }
+  }]).then(function(ans){
+    connection.query('INSERT INTO products SET ?',{
+      pname: ans.product,
+      deptname: ans.department,
+      price: ans.price,
+      stock: ans.quantity
+    }, function(err, res){
+      if(err) throw err;
+      console.log('\nAnother item was added to the store.\n');
+    })
+    runSearch();
+  });
 }
+// function addItemSell() {
+//   console.log("here we go")
+//   inquirer
+//     .prompt({
+//       name: "pname",
+//       type: "input",
+//       message: "What's the name of the product you wouild like to add?"
+//     },
+//     {
+//       name: "deptname",
+//       type: "input",
+//       message: "Department this product belongs to?"
+//     },
+//     {
+//       name: "stock",
+//       type: "input",
+//       message: "How many of this product are you adding?"
+//     },
+//     {
+//       name: "price",
+//       type: "input",
+//       message: "What is the price of this product?"
+//     }).then(function () {
+      
+//       connection.query("INSERT INTO products(pname, deptname, stock, price) VALUES('pname', 'deptname', 'stock', 'price')", function (err, res) {
+//         if (err) throw err;
+//         console.log(
+//           "Product: " +
+//           res[0].pname +
+//           " || Qty: " +
+//           res[0].stock +
+//           " || Price: " +
+//           res[0].price +
+//           " || Department: " +
+//           res[0].deptname
+//         );
+//         runSearch();
+//       });
+//     });
+// }
 
