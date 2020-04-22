@@ -26,7 +26,7 @@ A command line database for your shopping pleasure, built with MySQL and Node.JS
 
 <img href="./1.png">
 <img href="./2.png">
-![Demo](./1.png)
+
 <p> When running "node bamazonmanager.js" the user will be prompted with 5 options, after an option is selected the application will prompt them in order to complete the request.</p>
 
 <img href="./3.png">
