@@ -24,10 +24,17 @@ A command line database for your shopping pleasure, built with MySQL and Node.JS
 
 <p> When running "node bamazoncustomer.js" the user will be prompted to view the inventory or buy an item directly, from the command line the user should be able to view invetory then select an item to buy, or just to buy if selected.</p>
 
-
+<img href="./1.png">
+<img href="./2.png">
 
 <p> When running "node bamazonmanager.js" the user will be prompted with 5 options, after an option is selected the application will prompt them in order to complete the request.</p>
 
+<img href="./3.png">
+<img href="./4.png">
+<img href="./5.png">
+<img href="./6.png">
+<img href="./7.png">
+<img href="./8.png">
 
 
 
