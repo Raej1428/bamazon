@@ -24,17 +24,17 @@ A command line database for your shopping pleasure, built with MySQL and Node.JS
 
 <p> When running "node bamazoncustomer.js" the user will be prompted to view the inventory or buy an item directly, from the command line the user should be able to view invetory then select an item to buy, or just to buy if selected.</p>
 
-![first screenshot](https://github.com/Raej1428/bamazon/blob/master/1.png)
-![first screenshot](https://github.com/Raej1428/bamazon/blob/master/2.png)
+![first screenshot](https://github.com/Raej1428/bamazon/blob/master/7.png)
+![first screenshot](https://github.com/Raej1428/bamazon/blob/master/8.png)
 
 <p> When running "node bamazonmanager.js" the user will be prompted with 5 options, after an option is selected the application will prompt them in order to complete the request.</p>
 
+![first screenshot](https://github.com/Raej1428/bamazon/blob/master/1.png)
+![first screenshot](https://github.com/Raej1428/bamazon/blob/master/2.png)
 ![first screenshot](https://github.com/Raej1428/bamazon/blob/master/3.png)
 ![first screenshot](https://github.com/Raej1428/bamazon/blob/master/4.png)
 ![first screenshot](https://github.com/Raej1428/bamazon/blob/master/5.png)
 ![first screenshot](https://github.com/Raej1428/bamazon/blob/master/6.png)
-![first screenshot](https://github.com/Raej1428/bamazon/blob/master/7.png)
-![first screenshot](https://github.com/Raej1428/bamazon/blob/master/8.png)
 
 
 
